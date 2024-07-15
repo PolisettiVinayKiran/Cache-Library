@@ -20,11 +20,31 @@ public:
             stack.push(key);
             set.insert(key);
         }
+        else
+        {
+            keyAccessed(key);
+        }
     }
 
     void keyRemoved(const K& key) override {
         if (set.find(key) != set.end()) {
-            set.erase(key);
+            set.erase(key); // Remove fromt set
+
+            std::stack<K> tempStack; // Remove from stack
+            for(int i=0;i<stack_size;i++)
+            {
+                K topKey = stack.top();
+                stack.pop();
+                if(topKey != key)
+                {
+                    tempStack.push(topKey);
+                }
+            }
+            while(!tempStack.empty())
+            {
+                stack.push(tempStack.top());
+                tempStack.pop();
+            }
         }
     }
 
@@ -36,6 +56,14 @@ public:
         stack.pop();
         set.erase(key);
         return key;
+    }
+
+    void clear() override {
+        while(!stack.empty()) // Clear the stack
+        {
+            stack.pop();
+        }
+        set.clear(); // Clear the set
     }
 };
 

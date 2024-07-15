@@ -5,7 +5,7 @@
 
 int main() {
     IEvictionPolicy<int>* lifoPolicy = new LIFOEvictionPolicy<int>();
-    Cache<int, std::string> cache(3, std::move(lifoPolicy));
+    Cache<int, std::string> cache(3, lifoPolicy);
 
     cache.put(1, "one");
     cache.put(2, "two");

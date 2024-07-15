@@ -45,6 +45,7 @@ public:
 
     void clear() override {
         cache.clear();                                  // Clear all entries from cache
+        evictionPolicy->clear();                        // Notify eviction policy
     }
 
     size_t size() const override {

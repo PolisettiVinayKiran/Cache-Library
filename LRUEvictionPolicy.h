@@ -24,6 +24,10 @@ public:
             lru_list.push_front(key);
             map[key] = lru_list.begin();
         }
+        else
+        {
+            keyAccessed(key);
+        }
     }
 
     void keyRemoved(const K& key) override {
@@ -41,6 +45,11 @@ public:
         lru_list.pop_back();
         map.erase(key);
         return key;
+    }
+
+    void clear() override {
+        lru_list.clear(); // Cleae the list
+        map.clear(); // Clear the set
     }
 };
 

@@ -6,7 +6,7 @@
 int main() {
     // Create LRU eviction policy
     IEvictionPolicy<int>* lruPolicy = new LRUEvictionPolicy<int>();
-    Cache<int, std::string> cache(3, std::move(lruPolicy));
+    Cache<int, std::string> cache(3, lruPolicy);
 
     // Test basic puts and gets
     cache.put(1, "one");

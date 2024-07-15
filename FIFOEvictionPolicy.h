@@ -20,11 +20,26 @@ public:
             queue.push(key);
             set.insert(key);
         }
+        else
+        {
+            keyAccessed(key);
+        }
     }
 
     void keyRemoved(const K& key) override {
         if (set.find(key) != set.end()) {
-            set.erase(key);
+            set.erase(key); // Remove fromt set
+            
+            int queue_size = queue.size(); // Remove from queue
+            for(int i=0;i<queue_size;i++)
+            {
+                K frontKey = queue.front();
+                queue.pop();
+                if(frontKey != key)
+                {
+                    queue.push(frontKey);
+                }
+            }
         }
     }
 
@@ -36,6 +51,14 @@ public:
         queue.pop();
         set.erase(key);
         return key;
+    }
+
+    void clear() override {
+        while(!queue.empty()) // Clear the queue
+        {
+            queue.pop();
+        }
+        set.clear(); // Clear the set
     }
 };
 

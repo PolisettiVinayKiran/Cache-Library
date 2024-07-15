@@ -12,6 +12,7 @@ public:
     virtual void keyAdded(const K& key) = 0;  // Called when a key is added to the cache
     virtual void keyRemoved(const K& key) = 0;  // Called when a key is removed from the cache
     virtual K evictKey() = 0;  // Determines which key to evict from the cache
+    virtual void clear() = 0;  // Clears the eviction policy's data
 };
 
 #endif // IEVICTIONPOLICY_H
